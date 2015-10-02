@@ -8,16 +8,17 @@ screen = pygame.display.set_mode(size)
 c = pygame.time.Clock()
 i = 0
 
-
-imagelist = [pygame.image.load("HEARTS\heart2.gif"),
-             pygame.image.load("HEARTS\heart3.gif"),
-             pygame.image.load("HEARTS\heart4.gif"),
-             pygame.image.load("HEARTS\heart5.gif")]
+count = 1
+imagelist = []
+while count <= 52:
+	imagelist.append(pygame.image.load("CardPics/"+str(count)+".png"))
+	count+=1
+				  
 
 while True:
-    screen.blit(imagelist[i], (200,0))
+    screen.blit(imagelist[i], (200,200))
     pygame.display.flip()
     c.tick(2)
     i+=1
-    if i == 4:
-        i = 0
+    if i == 52:
+		pygame.quit()
