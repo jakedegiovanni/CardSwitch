@@ -18,6 +18,7 @@ while count <= 52:
 	imagelist.append(pygame.image.load("CardPics/"+str(count)+".png"))
 	count+=1
 
+
 # make some Surface objects for the animation frames:
 surf1 = pygame.Surface((100, 100))
 
@@ -41,7 +42,7 @@ while True: # main loop
 # while True:
 # 	screen.blit(imagelist[i], (200,200))
 # 	pygame.display.flip()
-# 	c.tick(2)
+# 	c.tick(5)
 # 	for event in pygame.event.get():
 # 		if event.type == pygame.KEYDOWN:
 # 			if event.key == pygame.K_ESCAPE:
@@ -49,7 +50,7 @@ while True: # main loop
 # 	i+=1
 # 	if i == 52:
 # 		pygame.quit()
-
+#       break
 
 		
 
