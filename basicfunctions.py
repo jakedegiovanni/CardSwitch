@@ -31,6 +31,7 @@ def level(num1, list1):
 def randomCard(list1):
     randnumber = randint(0, (len(list1)-1))
     selected = list1.pop(randnumber)
+    
     return selected
 
     
