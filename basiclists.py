@@ -21,7 +21,7 @@ while count <= 52:
 while True:
 	screen.blit(imagelist[i], (200,200))
 	pygame.display.flip()
-	c.tick(2)
+	c.tick(5)
 	for event in pygame.event.get():
 		if event.type == pygame.KEYDOWN:
 			if event.key == pygame.K_ESCAPE:
@@ -29,6 +29,7 @@ while True:
 	i+=1
 	if i == 52:
 		pygame.quit()
+		break
 		
 
 
