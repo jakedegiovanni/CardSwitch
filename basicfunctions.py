@@ -2,16 +2,9 @@ import pygame, time, sys, pyganim
 from random import randint
 import pyganim
 pygame.init()
-<<<<<<< HEAD
-
-w = 700
-h = 600
-=======
 pygame.display.set_caption("Card Switch")
 w = 720
 h = 640
->>>>>>> ec792a5e2c77677b96193c490d6c6114d65ae5e8
-
 
 picture = pygame.image.load('Background/Background With Logo.png')
 picture = pygame.transform.scale(picture, (1280, 720))
