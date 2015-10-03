@@ -28,11 +28,26 @@ def main():
         correctlist = []
 
         level(levelnum, imagelist)
-        card = inputSuit()
-        time.sleep(5)
-        number = inputCard()
-        card+=number
-        print 'Result = ' + str(card)
+
+        card_count = 0
+        while card_count < 10:
+            time.sleep(7)
+            second=0
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        pygame.quit()
+                        sys.exit()
+                if second==0:
+                    card = inputSuit(event)
+                    second=1
+                else:
+                    number = inputCard(event)
+
+            card+=number
+            print 'Result = ' + str(card)
+            card_count+=1
+
         levelnum += 1
       #  print correctlist
         time.sleep(10)
@@ -55,7 +70,6 @@ def level(num1, list1):
             pygame.display.update()
 
         print count
-      #  pygame.display.flip()
         c.tick(time)
         count += 1
 
@@ -76,58 +90,47 @@ def generateList():
     return imagelist
 
 
-def inputSuit():
+def inputSuit(event):
     user_answers = []
     card = 0
-
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                    pygame.quit()
-                    sys.exit()
-            if event.key == pygame.K_h:
-                card=1
-            if event.key == pygame.K_c:
-                card=14
-            if event.key == pygame.K_d:
-                card=27
-            if event.key == pygame.K_s:
-                card=40
+    if event.key == pygame.K_h:
+        card=1
+    if event.key == pygame.K_c:
+        card=14
+    if event.key == pygame.K_d:
+        card=27
+    if event.key == pygame.K_s:
+        card=40
 
     return card
 
-def inputCard():
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                pygame.quit()
-                sys.exit()
-            elif event.key == pygame.K_a:
-                pass
-            elif event.key == pygame.K_2:
-                return 1
-            elif event.key == pygame.K_3:
-                return 2
-            elif event.key == pygame.K_4:
-                return 3
-            elif event.key == pygame.K_5:
-                return 4
-            elif event.key == pygame.K_6:
-                return 5
-            elif event.key == pygame.K_7:
-                return 6
-            elif event.key == pygame.K_8:
-                return 7
-            elif event.key == pygame.K_9:
-                return 8
-            elif event.key == pygame.K_t:
-                return 9
-            elif event.key == pygame.K_j:
-                return 10
-            elif event.key == pygame.K_q:
-                return 11
-            elif event.key == pygame.K_k:
-                return 12
+def inputCard(event):
+    if event.key == pygame.K_a:
+        pass
+    elif event.key == pygame.K_2:
+        return 1
+    elif event.key == pygame.K_3:
+        return 2
+    elif event.key == pygame.K_4:
+        return 3
+    elif event.key == pygame.K_5:
+        return 4
+    elif event.key == pygame.K_6:
+        return 5
+    elif event.key == pygame.K_7:
+        return 6
+    elif event.key == pygame.K_8:
+        return 7
+    elif event.key == pygame.K_9:
+        return 8
+    elif event.key == pygame.K_t:
+        return 9
+    elif event.key == pygame.K_j:
+        return 10
+    elif event.key == pygame.K_q:
+        return 11
+    elif event.key == pygame.K_k:
+        return 12
 
 
 def menu():
