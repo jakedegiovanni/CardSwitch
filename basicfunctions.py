@@ -6,10 +6,18 @@ pygame.display.set_caption("Card Switch")
 w = 720
 h = 640
 
-picture = pygame.image.load('Background/Background for in-Game.png')
-picture = pygame.transform.scale(picture, (720, 640))
+menuPicture = pygame.image.load('Background/Main Screen.jpg')
+menuPicture = pygame.transform.scale(menuPicture, (720, 640))
+rules1Picture = pygame.image.load('Background/How to play page 1.jpg')
+rules1Picture = pygame.transform.scale(rules1Picture, (720, 640))
+rules2Picture = pygame.image.load('Background/How to play page 2.jpg')
+rules2Picture = pygame.transform.scale(rules2Picture, (720, 640))
+readyPicture = pygame.image.load('Background/Final page before game.jpg')
+readyPicture = pygame.transform.scale(readyPicture, (720, 640))
+gamePicture = pygame.image.load('Background/Background for in-Game.png')
+gamePicture = pygame.transform.scale(gamePicture, (720, 640)) 	
 
-rect = picture.get_rect()
+rect = gamePicture.get_rect()
 rect = rect.move((0, 0))
 
 size = (w, h)
@@ -19,7 +27,8 @@ font = pygame.font.Font("fonts/PressStart2p.ttf", 26)
 
 
 screen.fill((250, 250, 250))
-screen.blit(picture, rect)
+
+screen.blit(gamePicture, rect)
 
 
 def main():
@@ -29,7 +38,7 @@ def main():
     score = 0
 
     # initialize font; must be called after 'pygame.init()' to avoid 'Font not Initialized' error
-    myfont = pygame.font.SysFont("monospace", 50)
+    myfont = pygame.font.SysFont("Courier New", 72)
     myfont.set_bold(True)
 
 
@@ -61,6 +70,7 @@ def main():
         while card_count < 3 + levelnum:
             time.sleep(3)
             second=0
+            renderDash(w, h)
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
@@ -73,7 +83,6 @@ def main():
                     number = inputCard(event)
 
             w+=50
-            renderDash(w, h)
             card+=number
             useranswers.append(card)
             print 'Result ' + str(result) + " = "+ str(card)
@@ -81,7 +90,7 @@ def main():
             card_count+=1
 
         i = 0
-        while i<3+levelnum:
+        while i < 3+levelnum:
             if correctlist[i] == useranswers[i]:
                 score += 1
             else:
@@ -98,7 +107,7 @@ def main():
 
         print "score for level " + str(levelnum)+ " is " + str(score)
         screen.fill((250, 250, 250))
-        screen.blit(picture, rect)
+        screen.blit(gamePicture, rect)
         label = myfont.render("Score = " + str(score), 1, (255,215,0))
         screen.blit(label, (100, 100))
         pygame.display.flip()
@@ -197,10 +206,8 @@ def inputCard(event):
         return 13
 
 def renderText(w, h):
-    myfont = pygame.font.SysFont("monospace", 50)
+    myfont = pygame.font.SysFont("Courier New", 72)
     myfont.set_bold(True)
-
-
     label = myfont.render("Answer now", 1, (255,215,0))
     screen.blit(label, (w, h))
     pygame.display.flip()
@@ -208,8 +215,6 @@ def renderText(w, h):
 def renderDash(w, h):
     myfont = pygame.font.SysFont("monospace", 50)
     myfont.set_bold(True)
-
-
     label = myfont.render("_", 1, (255,215,0))
     screen.blit(label, (w, h))
     pygame.display.flip()
