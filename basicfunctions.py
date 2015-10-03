@@ -1,8 +1,8 @@
 import pygame, time, sys, pyganim
 from random import randint
 pygame.init()
-w = 1000
-h = 1000
+w = 700
+h = 600
 
 size = (w, h)
 screen = pygame.display.set_mode(size)
