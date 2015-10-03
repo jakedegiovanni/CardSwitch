@@ -13,21 +13,12 @@ count = 1
 imagelist = []
 
 
-
 while count <= 52:
 	imagelist.append(pygame.image.load("CardPics/"+str(count)+".png"))
 	count+=1
 
-
-# make some Surface objects for the animation frames:
-surf1 = pygame.Surface((100, 100))
-
-surf2 = pygame.Surface((100, 100))
-
-surf3 = pygame.Surface((100, 100))
-
-# create the PygAnimation object
-animObj = pyganim.PygAnimation([(imagelist[0], 0.2), (imagelist[2], 0.2), (imagelist[3], 1.0)])
+# create the PygAnimation object, selects the images to display.
+animObj = pyganim.PygAnimation([(imagelist[0], 3.0), (imagelist[2], 3.0), (imagelist[3], 3.0)], loop=False)
 animObj.play()
 
 while True: # main loop
@@ -36,7 +27,8 @@ while True: # main loop
             if event.key == pygame.K_ESCAPE:
                 pygame.quit()
                 sys.exit()
-    animObj.blit(screen, (0, 0))
+
+    animObj.blit(screen, (100, 100))
     pygame.display.update()
 
 # while True:
