@@ -6,8 +6,10 @@ pygame.display.set_caption("Card Switch")
 w = 720
 h = 640
 
+
 picture = pygame.image.load('Background/Background With Logo.png')
 picture = pygame.transform.scale(picture, (1280, 720))
+
 rect = picture.get_rect()
 rect = rect.move((0, 0))
 
@@ -26,6 +28,15 @@ def main():
     imagelist = generateList()
     levelnum = 1
     score = 0
+
+    # initialize font; must be called after 'pygame.init()' to avoid 'Font not Initialized' error
+    myfont = pygame.font.SysFont("monospace", 50)
+    myfont.set_bold(True)
+
+
+    # render text
+    label = myfont.render("Score = " + str(score), 1, (255,215,0))
+    screen.blit(label, (100, 100))
 
     while levelnum<2:
         global chosen_card
@@ -73,11 +84,17 @@ def main():
                 print correctlist
                 print useranswers
                 print "Sorry, you lost the game: " + str(score)
-                return 0
+                label = myfont.render("Score = " + str(score), 1, (255,215,0))
+                screen.blit(label, (100, 100))
 
             i+=1
 
         print "score for level " + str(levelnum)+ " is " + str(score)
+        screen.fill((250, 250, 250))
+        screen.blit(picture, rect)
+        label = myfont.render("Score = " + str(score), 1, (255,215,0))
+        screen.blit(label, (100, 100))
+        pygame.display.flip()
 
         levelnum += 1
       #  print correctlist
@@ -105,12 +122,14 @@ def level(num1, list1):
         animObj.blit(screen, (100,100))
         pygame.display.update()
 
+        renderText()
+
         print count
         c.tick(time)
         count += 1
 
 def randomCard(list1):
-    randnumber = randint(0, (len(list1)-1))
+    randnumber = randint(1, (len(list1)-1))
     if randnumber not in chosen_card:
         correctlist.append(randnumber)
         chosen_card.append(randnumber)
@@ -171,7 +190,13 @@ def inputCard(event):
     elif event.key == pygame.K_k:
         return 13
 
+def renderText():
+    myfont = pygame.font.SysFont("monospace", 50)
+    myfont.set_bold(True)
 
+
+    label = myfont.render("answer now...", 1, (255,215,0))
+    screen.blit(label, (320, 350))
 
 
 def menu():
