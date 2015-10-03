@@ -36,6 +36,7 @@ def main():
     # render text
     label = myfont.render("Score = " + str(score), 1, (255,215,0))
     screen.blit(label, (100, 100))
+    renderText(25, 515)
 
     while levelnum<2:
         global chosen_card
@@ -55,13 +56,12 @@ def main():
 
         card_count = 0
         result = 1
+        w = 10
+        h = 550
         while card_count < 3 + levelnum:
             time.sleep(3)
             second=0
-            w = 250
-            h = 400
             for event in pygame.event.get():
-                renderText(w+=75, h+=75)
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         pygame.quit()
@@ -72,6 +72,8 @@ def main():
                 else:
                     number = inputCard(event)
 
+            w+=50
+            renderDot(w, h)
             card+=number
             useranswers.append(card)
             print 'Result ' + str(result) + " = "+ str(card)
@@ -199,7 +201,16 @@ def renderText(w, h):
     myfont.set_bold(True)
 
 
-    label = myfont.render("answer now...", 1, (255,215,0))
+    label = myfont.render("answer now", 1, (255,215,0))
+    screen.blit(label, (w, h))
+    pygame.display.flip()
+
+def renderDot(w, h):
+    myfont = pygame.font.SysFont("monospace", 50)
+    myfont.set_bold(True)
+
+
+    label = myfont.render(".", 1, (255,215,0))
     screen.blit(label, (w, h))
     pygame.display.flip()
 
