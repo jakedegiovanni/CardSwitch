@@ -14,22 +14,26 @@ def main():
     score = 0
     while levelnum < 10:
         level(levelnum, imagelist)
-        print levelnum
         levelnum += 1
-
+        imagelist = generateList()
+        
 def level(num1, list1):
     time = num1*0.5
     count = 0
     while count < 10:
         screen.blit(randomCard(list1), (0,0))
+        print count
         pygame.display.flip()
         c.tick(time)
         count += 1
+    
 
-def randomCard(list):
-    selected = list.pop(randint(0, (len(list) - 1)))
+def randomCard(list1):
+    randnumber = randint(0, (len(list1)-1))
+    selected = list1.pop(randnumber)
     return selected
 
+    
 def generateList():
     count = 1
     imagelist = []
