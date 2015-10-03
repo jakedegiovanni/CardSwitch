@@ -61,8 +61,8 @@ def main():
             w = 250
             h = 400
             for event in pygame.event.get():
-                renderText(w+=75, h+=75)
-                if event.type == pygame.KEYDOWN:
+				renderText(w+=75, h+=75)
+				if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         pygame.quit()
                         sys.exit()
