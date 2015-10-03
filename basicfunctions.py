@@ -73,7 +73,7 @@ def main():
                     number = inputCard(event)
 
             w+=50
-            renderDot(w, h)
+            renderDash(w, h)
             card+=number
             useranswers.append(card)
             print 'Result ' + str(result) + " = "+ str(card)
@@ -205,12 +205,12 @@ def renderText(w, h):
     screen.blit(label, (w, h))
     pygame.display.flip()
 
-def renderDot(w, h):
+def renderDash(w, h):
     myfont = pygame.font.SysFont("monospace", 50)
     myfont.set_bold(True)
 
 
-    label = myfont.render(".", 1, (255,215,0))
+    label = myfont.render("_", 1, (255,215,0))
     screen.blit(label, (w, h))
     pygame.display.flip()
 
