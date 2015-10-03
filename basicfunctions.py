@@ -2,13 +2,24 @@ import pygame, time, sys, pyganim
 from random import randint
 import pyganim
 pygame.init()
+pygame.display.set_caption("Card Switch")
 w = 720
 h = 640
+
+
+picture = pygame.image.load('Background/Background With Logo.png')
+picture = pygame.transform.scale(picture, (1280, 720))
+rect = picture.get_rect()
+rect = rect.move((0, 0))
 
 size = (w, h)
 screen = pygame.display.set_mode(size)
 c = pygame.time.Clock()
 font = pygame.font.Font("fonts/PressStart2p.ttf", 26)
+
+
+screen.fill((250, 250, 250))
+screen.blit(picture, rect)
 
 
 def main():
@@ -90,6 +101,11 @@ def level(num1, list1):
             animObj.blit(screen, (100,100))
             pygame.display.update()
 
+        animObj = pyganim.PygAnimation([(pygame.image.load("Background/back_card.gif"), 0.5)], loop=False)
+        animObj.play()
+        animObj.blit(screen, (100,100))
+        pygame.display.update()
+
         print count
         c.tick(time)
         count += 1
@@ -155,6 +171,8 @@ def inputCard(event):
         return 12
     elif event.key == pygame.K_k:
         return 13
+
+
 
 
 def menu():
