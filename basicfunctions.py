@@ -6,9 +6,8 @@ pygame.display.set_caption("Card Switch")
 w = 720
 h = 640
 
-
-picture = pygame.image.load('Background/Background With Logo.png')
-picture = pygame.transform.scale(picture, (1280, 720))
+picture = pygame.image.load('Background/Background for in-Game.png')
+picture = pygame.transform.scale(picture, (720, 640))
 
 rect = picture.get_rect()
 rect = rect.move((0, 0))
