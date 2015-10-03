@@ -201,7 +201,7 @@ def renderText(w, h):
     myfont.set_bold(True)
 
 
-    label = myfont.render("answer now", 1, (255,215,0))
+    label = myfont.render("Answer now", 1, (255,215,0))
     screen.blit(label, (w, h))
     pygame.display.flip()
 
