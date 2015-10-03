@@ -18,6 +18,9 @@ def main():
     score = 0
 
     while levelnum<2:
+        global chosen_card
+        chosen_card = []
+
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
@@ -53,7 +56,7 @@ def main():
             card_count+=1
 
         i = 0
-        while i<10:
+        while i<3:
             if correctlist[i] == useranswers[i]:
                 score += 1
             else:
@@ -93,8 +96,12 @@ def level(num1, list1):
 
 def randomCard(list1):
     randnumber = randint(0, (len(list1)-1))
-  #  print randnumber
-    correctlist.append(randnumber)
+    if randnumber not in chosen_card:
+        correctlist.append(randnumber)
+        chosen_card.append(randnumber)
+    else:
+        return randomCard(list1)
+
     return pygame.image.load("Cards/"+str(randnumber)+".gif")
 
 
