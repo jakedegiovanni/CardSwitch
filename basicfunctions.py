@@ -10,13 +10,10 @@ pygame.mixer.music.load("Song\keygensong.wav")
 pygame.mixer.music.play()
 
 infoObject = pygame.display.Info()
-pygame.display.set_mode((infoObject.current_w, infoObject.current_h))
 
-w = infoObject.current_w
-h = infoObject.current_h
 
 menuPicture = pygame.image.load('Background/Main Screen.jpg')
-menuPicture = pygame.transform.scale(menuPicture, (w, h))
+menuPicture = pygame.transform.scale(menuPicture, (720, 640))
 rules1Picture = pygame.image.load('Background/How to play page 1.jpg')
 rules1Picture = pygame.transform.scale(rules1Picture, (720, 640))
 rules2Picture = pygame.image.load('Background/How to play page 2.jpg')
@@ -30,7 +27,7 @@ rect = gamePicture.get_rect()
 rect = rect.move((0, 0))
 
 size = (w, h)
-screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
+screen = pygame.display.set_mode(size)
 w, h = screen.get_size()
 print w, h
 c = pygame.time.Clock()
@@ -78,18 +75,20 @@ def main():
 
         card_count = 0
         result = 1
-        w = 10
-        h = 550
-        while card_count < 3 + levelnum:
+        while card_count < (3 + levelnum):
             card = inputSuit()
+            print card
             number = inputCard()
+            print number
 
-            renderText(25, 515)
-            card+=number
+         #   renderText(25, 515)
+            card += number
+            print card
             useranswers.append(card)
-            print 'Result ' + str(result) + " = "+ str(card)
-            result+=1
-            card_count+=1
+            print useranswers
+            print 'Result ' + str(result) + " = " + str(card)
+            result += 1
+            card_count += 1
 
         i = 0
         while i < 3+levelnum:
@@ -97,15 +96,15 @@ def main():
                 score += 1
             else:
                 print correctlist
-                print useranswers
                 print "Sorry, you lost the game: " + str(score)
-                label = font.render("Sorry, you lost the game/nScore = " + str(score), 1, (255,215,0))
-                screen.blit(label, (100, 100))
+                label = font.render("Sorry, you lost the gameScore = " + str(score), 1, (255,215,0))
+                screen.blit(label, (100, 300))
+               # pygame.display.flip()
                 time.sleep(3)
                 pygame.quit()
                 sys.exit()
 
-            i+=1
+            i += 1
 
         print "score for level " + str(levelnum)+ " is " + str(score)
         screen.fill((250, 250, 250))
@@ -166,25 +165,24 @@ def generateList():
 
 
 def inputSuit():
-    user_answers = []
-    while 1:
+    while True:
         event = pygame.event.wait()
         if event.type in (pygame.K_h, pygame.KEYDOWN):
-            card=0
+            card = 0
             return card
         elif event.type in (pygame.K_c, pygame.KEYDOWN):
-            card=13
+            card = 13
             return card
         elif event.type in (pygame.K_d, pygame.KEYDOWN):
-            card=26
+            card = 26
             return card
         elif event.type in (pygame.K_s, pygame.KEYDOWN):
-            card=39
+            card = 39
             return card
 
 
 def inputCard():
-    while 1:
+    while True:
         event = pygame.event.wait()
         if event.type in (pygame.K_a, pygame.KEYDOWN):
             return 1
@@ -219,17 +217,17 @@ def renderText(w, h):
     screen.blit(label, (w, h))
     pygame.display.flip()
 
-def renderDash(w, h):
+
+def renderDash(width, height):
     font.set_bold(True)
     label = font.render("_", 1, (255,215,0))
-    screen.blit(label, (w, h))
+    screen.blit(label, (width, height))
     pygame.display.flip()
 
 
-
-def menu(rect, first):
+def menu(rect1, first):
     screen.fill((250, 250, 250))
-    screen.blit(first, rect)
+    screen.blit(first, rect1)
     pygame.display.flip()
     while 1:
         input = pygame.event.wait()
