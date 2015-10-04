@@ -118,6 +118,7 @@ def main():
             card_count += 1
 
         i = 0
+        card_count = 0
         while i < 3+levelnum:
          #   if correctlist[i] == useranswers[i]:
 
