@@ -136,6 +136,7 @@ def main():
                 print "high score is: "+str(highscoreint)
                 screen.fill((250, 250, 250))
                 screen.blit(gamePicture, rect)
+                screen.blit(label, rect)
                 pygame.display.update()
                 pygame.display.flip()
                 time.sleep(4)
