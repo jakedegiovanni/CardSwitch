@@ -73,9 +73,9 @@ def main():
 
     # render text
     label2= font.render("High Score= " +str(highscore), 1, (255,215,0))
-    screen.blit(label2,(40,50))
+    screen.blit(label2,(40,55))
     label = font.render("Score = " + str(score), 1, (255,215,0))
-    screen.blit(label, (40, 100))
+    screen.blit(label, (40, 105))
 
 
     for event in pygame.event.get():
@@ -105,7 +105,7 @@ def main():
             card = inputSuit()
             number = inputCard()
 
-            renderText(25, 515)
+            renderText(25, 530)
             card+=number
             useranswers.append(card)
             print 'Result ' + str(result) + " = "+ str(card)
@@ -169,7 +169,7 @@ def level(num1, list1):
     #adding levels
     
     label3= font.render("Level: " +str(num1), 1, (255,215,0))
-    screen.blit(label3,(40,1))
+    screen.blit(label3,(40,5))
 
     
     time = 3-(0.25*num1)
@@ -216,7 +216,7 @@ def generateList():
 
 
 def inputSuit():
-    renderText(25, 515)
+    renderText(25, 530)
     while 1:
         event = pygame.event.wait()
         if event.type == pygame.KEYDOWN:
