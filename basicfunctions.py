@@ -8,7 +8,7 @@ w = 720
 h = 640
 pygame.mixer.music.load("Song\keygensong.wav")
 pygame.mixer.music.set_volume(0.5)
-pygame.mixer.music.play()
+pygame.mixer.music.play(-1)
 
 
 cardsound = pygame.mixer.Sound("Song\AOL_Sword.wav")
@@ -66,7 +66,9 @@ def main():
     # set up high score
     hisc=open("high_score.txt","r+")
     highscore=hisc.read()
+
     highscoreint=int(highscore)
+    hisc.close()
     print highscoreint
 
     # render text
@@ -117,12 +119,13 @@ def main():
 
                 failsound.play()
                 label3 = font.render("Sorry, you lost the game", 1, (255,215,0))
-				
+			
                 #high score implemented into the game
                 if score>highscoreint:
                         hisc2=open("high_score.txt","w")
                         highscoreint=score
                         hisc2.write(str(highscoreint))
+                        hisc2.close()
                         print"new high score is: "+str(highscoreint)
                 
                 #even if the high score hasn't been broken
@@ -154,7 +157,7 @@ def main():
 
         levelnum += 1
       #  print correctlist
-        time.sleep(10)
+        time.sleep(3)
         imagelist = generateList()
         c.tick(40)
 
