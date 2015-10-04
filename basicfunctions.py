@@ -124,7 +124,9 @@ def main():
                 if score>highscoreint:
                         hisc2=open("high_score.txt","w")
                         highscoreint=score
+                        hisc2.seek(0)
                         hisc2.write(str(highscoreint))
+                        hisc2.truncate()
                         hisc2.close()
                         print"new high score is: "+str(highscoreint)
                 
