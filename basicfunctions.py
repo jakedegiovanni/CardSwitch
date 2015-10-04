@@ -9,8 +9,14 @@ h = 640
 pygame.mixer.music.load("Song\keygensong.wav")
 pygame.mixer.music.play()
 
+infoObject = pygame.display.Info()
+pygame.display.set_mode((infoObject.current_w, infoObject.current_h))
+
+w = infoObject.current_w
+h = infoObject.current_h
+
 menuPicture = pygame.image.load('Background/Main Screen.jpg')
-menuPicture = pygame.transform.scale(menuPicture, (720, 640))
+menuPicture = pygame.transform.scale(menuPicture, (w, h))
 rules1Picture = pygame.image.load('Background/How to play page 1.jpg')
 rules1Picture = pygame.transform.scale(rules1Picture, (720, 640))
 rules2Picture = pygame.image.load('Background/How to play page 2.jpg')
@@ -29,8 +35,6 @@ w, h = screen.get_size()
 print w, h
 c = pygame.time.Clock()
 font = pygame.font.Font("fonts/PressStart2p.ttf", 26)
-
-
 
 
 
@@ -165,9 +169,6 @@ def inputSuit():
     user_answers = []
     while 1:
         event = pygame.event.wait()
-        if event.type in (pygame.K_ESCAPE, pygame.KEYDOWN):
-            pygame.quit()
-            sys.exit()
         if event.type in (pygame.K_h, pygame.KEYDOWN):
             card=0
             return card
@@ -185,9 +186,6 @@ def inputSuit():
 def inputCard():
     while 1:
         event = pygame.event.wait()
-        if event.type in (pygame.K_ESCAPE, pygame.KEYDOWN):
-            pygame.quit()
-            sys.exit()
         if event.type in (pygame.K_a, pygame.KEYDOWN):
             return 1
         elif event.type in (pygame.K_2, pygame.KEYDOWN):
