@@ -61,13 +61,25 @@ def main():
     score = 0
 
     # initialize font; must be called after 'pygame.init()' to avoid 'Font not Initialized' error
+    myfont=pygame.font.SysFont("Courier New", 72)
     font.set_bold(True)
 
+    # set up high score
+    hisc=open("high_score.txt","r+")
+    highscore=hisc.read()
+    highscoreint=int(highscore)
+    print highscoreint
 
     # render text
-    label = font.render("Score = " + str(score), 1, (255,215,0))
-    screen.blit(label, (100, 100))
+    label2= myfont.render("High Score= " +str(highscore), 1, (255,215,0))
+    screen.blit(label2,(40,50))
+    label = myfont.render("Score = " + str(score), 1, (255,215,0))
+    screen.blit(label, (40, 100))
+    renderText(25, 515)
     
+	
+   
+	
 
     while levelnum<2:
         global chosen_card
@@ -104,8 +116,20 @@ def main():
                 print correctlist
                 print useranswers
                 print "Sorry, you lost the game: " + str(score)
+
                 failsound.play()
                 label = font.render("Sorry, you lost the game\nScore = " + str(score), 1, (255,215,0))
+				
+                #high score implemented into the game
+                if score>highscoreint:
+                        hisc2=open("high_score.txt","w")
+                        highscoreint=score
+                        hisc2.write(str(highscoreint))
+                        print"new high score is: "+str(highscoreint)
+                
+                #even if the high score hasn't been broken
+                print "high score is: "+str(highscoreint)
+                label = font.render("Sorry, you lost the game/nScore = " + str(score), 1, (255,215,0))
                 screen.blit(label, (100, 100))
                 time.sleep(3)
                 pygame.quit()
