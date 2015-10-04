@@ -104,15 +104,6 @@ def main():
             number = inputCard()
             card+=number
             useranswers.append(card)
-
-            print useranswers
-            print 'Result ' + str(result) + " = " + str(card)
-            result += 1
-            card_count += 1
-
-        i = 0
-        card_count = 0
-        while i < 3+levelnum:
             print 'Result ' + str(result) + " = "+ str(card)
             if correctlist[card_count] == useranswers[card_count]:
                 score += 1
@@ -134,13 +125,11 @@ def main():
                 
                 #even if the high score hasn't been broken
                 print "high score is: "+str(highscoreint)
-                screen.fill((250, 250, 250))
-                screen.blit(gamePicture, rect)
-                pygame.display.update()
-                pygame.display.flip()
-                time.sleep(4)
-                main()
-
+                label = font.render("Sorry, you lost the game/nScore = " + str(score), 1, (255,215,0))
+                screen.blit(label, (100, 100))
+                time.sleep(3)
+                pygame.quit()
+                sys.exit()
             result+=1
             card_count+=1
 
@@ -211,7 +200,7 @@ def generateList():
 
 def inputSuit():
     user_answers = []
-    renderText(25, 530)
+    renderText(25, 515)
     while 1:
         event = pygame.event.wait()
         if event.type == pygame.KEYDOWN:
@@ -287,9 +276,6 @@ def menu(rect, first):
     while 1:
         input1 = pygame.event.wait()
         if input1.type == pygame.KEYDOWN:
-            if input1.key == pygame.K_ESCAPE:
-                pygame.quit()
-                sys.exit()
             if input1.key == pygame.K_SPACE:
                 selectsound.play()
                 return 0
