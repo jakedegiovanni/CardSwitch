@@ -200,7 +200,7 @@ def generateList():
 
 def inputSuit():
     user_answers = []
-    renderText(25, 515)
+    renderText(25, 530)
     while 1:
         event = pygame.event.wait()
         if event.type == pygame.KEYDOWN:
