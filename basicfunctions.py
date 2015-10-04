@@ -277,8 +277,9 @@ def menu(rect, first):
         input1 = pygame.event.wait()
         if input1.type == pygame.KEYDOWN:
             if input1.key == pygame.K_SPACE:
-                return 0
                 selectsound.play()
+                return 0
+                
 
 
 main()
