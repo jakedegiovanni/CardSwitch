@@ -61,7 +61,8 @@ def main():
     score = 0
 
     # initialize font; must be called after 'pygame.init()' to avoid 'Font not Initialized' error
-
+    myfont=pygame.font.SysFont("Courier New", 72)
+    font.set_bold(True)
 
     # set up high score
     hisc=open("high_score.txt","r+")
@@ -70,10 +71,11 @@ def main():
     print highscoreint
 
     # render text
-    label2= font.render("High Score= " +str(highscore), 1, (255,215,0))
+    label2= myfont.render("High Score= " +str(highscore), 1, (255,215,0))
     screen.blit(label2,(40,50))
-    label = font.render("Score = " + str(score), 1, (255,215,0))
+    label = myfont.render("Score = " + str(score), 1, (255,215,0))
     screen.blit(label, (40, 100))
+
 
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
@@ -89,7 +91,6 @@ def main():
         global chosen_card
         chosen_card = []
         global correctlist
-        global useranswers
         useranswers = []
         correctlist = []
 
@@ -102,6 +103,8 @@ def main():
         while card_count < 3 + levelnum:
             card = inputSuit()
             number = inputCard()
+
+            renderText(25, 515)
             card+=number
             useranswers.append(card)
             print 'Result ' + str(result) + " = "+ str(card)
@@ -158,6 +161,18 @@ def main():
 
 
 def level(num1, list1):
+
+
+    myfont=pygame.font.SysFont("Courier New", 72)
+    font.set_bold(True)
+
+
+    #adding levels
+    
+    label3= myfont.render("Level: " +str(num1), 1, (255,215,0))
+    screen.blit(label3,(40,1))
+
+    
     time = 3-(0.25*num1)
 
     count = 0
@@ -276,13 +291,13 @@ def menu(rect, first):
     screen.blit(first, rect)
     pygame.display.flip()
     while 1:
+   selectsound.play()
         input1 = pygame.event.wait()
         if input1.type == pygame.KEYDOWN:
             if input1.key == pygame.K_SPACE:
                 selectsound.play()
                 return 0
                 
-
 
 main()
 
