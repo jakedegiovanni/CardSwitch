@@ -8,7 +8,7 @@ w = 720
 h = 640
 pygame.mixer.music.load("Song\keygensong.wav")
 pygame.mixer.music.set_volume(0.5)
-pygame.mixer.music.play()
+pygame.mixer.music.play(-1)
 
 
 cardsound = pygame.mixer.Sound("Song\AOL_Sword.wav")
@@ -284,13 +284,12 @@ def renderDash(w, h):
     pygame.display.flip()
 
 
-s
+
 def menu(rect, first):
     screen.fill((250, 250, 250))
     screen.blit(first, rect)
     pygame.display.flip()
     while 1:
-        selectsound.play()
         input1 = pygame.event.wait()
         if input1.type == pygame.KEYDOWN:
             if input1.key == pygame.K_SPACE:
