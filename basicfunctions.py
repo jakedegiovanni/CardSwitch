@@ -11,6 +11,9 @@ pygame.mixer.music.set_volume(0.5)
 pygame.mixer.music.play()
 
 
+infoObject = pygame.display.Info()
+
+
 cardsound = pygame.mixer.Sound("Song\AOL_Sword.wav")
 selectsound = pygame.mixer.Sound("Song\AOL_Menu_Select.wav")
 successsound = pygame.mixer.Sound("Song\LOZ_Get_Heart.wav")
@@ -25,7 +28,7 @@ infoObject = pygame.display.Info()
 pygame.display.set_mode((w, h))
 
 menuPicture = pygame.image.load('Background/Main Screen.jpg')
-menuPicture = pygame.transform.scale(menuPicture, (w, h))
+menuPicture = pygame.transform.scale(menuPicture, (720, 640))
 rules1Picture = pygame.image.load('Background/How to play page 1.jpg')
 rules1Picture = pygame.transform.scale(rules1Picture, (720, 640))
 rules2Picture = pygame.image.load('Background/How to play page 2.jpg')
@@ -39,13 +42,13 @@ rect = gamePicture.get_rect()
 rect = rect.move((0, 0))
 
 size = (w, h)
-screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
+screen = pygame.display.set_mode(size)
 w, h = screen.get_size()
 print w, h
 c = pygame.time.Clock()
 font = pygame.font.Font("fonts/PressStart2p.ttf", 26)
 
-
+pygame.event.clear()
 
 def main():
     menu(rect, menuPicture)
@@ -97,25 +100,43 @@ def main():
 
         card_count = 0
         result = 1
-        w = 10
-        h = 550
-        while card_count < 3 + levelnum:
+        while card_count < (3 + levelnum):
             card = inputSuit()
+            print card
             number = inputCard()
+            print number
+
+         #   renderText(25, 515)
+            card += number
+            print card
             card+=number
             useranswers.append(card)
+            print useranswers
+            print 'Result ' + str(result) + " = " + str(card)
+            result += 1
+            card_count += 1
+
+        i = 0
+        card_count = 0
+        while i < 3+levelnum:
+         #   if correctlist[i] == useranswers[i]:
+
             print 'Result ' + str(result) + " = "+ str(card)
             if correctlist[card_count] == useranswers[card_count]:
                 score += 1
                 successsound.play()
             else:
                 print correctlist
-                print useranswers
                 print "Sorry, you lost the game: " + str(score)
+
+                label = font.render("Sorry, you lost the gameScore = " + str(score), 1, (255,215,0))
+                screen.blit(label, (100, 300))
+               # pygame.display.flip()
+
 
                 failsound.play()
                 label = font.render("Sorry, you lost the game\nScore = " + str(score), 1, (255,215,0))
-				
+
                 #high score implemented into the game
                 if score>highscoreint:
                         hisc2=open("high_score.txt","w")
@@ -133,11 +154,8 @@ def main():
             result+=1
             card_count+=1
 
-       # i = 0
-       # while i < 3+levelnum:
-            
 
-           # i+=1
+            i += 1
 
         print "score for level " + str(levelnum)+ " is " + str(score)
         screen.fill((250, 250, 250))
@@ -199,12 +217,11 @@ def generateList():
 
 
 def inputSuit():
-    user_answers = []
     renderText(25, 515)
     while 1:
         event = pygame.event.wait()
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_h: 
+            if event.key == pygame.K_h:
                 card=0
                 return card
             elif event.key == pygame.K_c:
@@ -255,23 +272,24 @@ def inputCard():
                 pygame.quit()
                 sys.exit()
 
+
 def renderText(w, h):
     font.set_bold(True)
     label = font.render("Answer now", 1, (255,215,0))
     screen.blit(label, (w, h))
     pygame.display.flip()
 
-def renderDash(w, h):
+
+def renderDash(width, height):
     font.set_bold(True)
     label = font.render("_", 1, (255,215,0))
-    screen.blit(label, (w, h))
+    screen.blit(label, (width, height))
     pygame.display.flip()
 
 
-
-def menu(rect, first):
+def menu(rect1, first):
     screen.fill((250, 250, 250))
-    screen.blit(first, rect)
+    screen.blit(first, rect1)
     pygame.display.flip()
     while 1:
         input1 = pygame.event.wait()
