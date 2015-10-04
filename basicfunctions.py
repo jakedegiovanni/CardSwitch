@@ -117,7 +117,7 @@ def main():
 
                 failsound.play()
                 label3 = font.render("Sorry, you lost the game", 1, (255,215,0))
-				
+			
                 #high score implemented into the game
                 if score>highscoreint:
                         hisc2=open("high_score.txt","w")
@@ -154,7 +154,7 @@ def main():
 
         levelnum += 1
       #  print correctlist
-        time.sleep(10)
+        time.sleep(3)
         imagelist = generateList()
         c.tick(40)
 
@@ -281,7 +281,7 @@ def renderDash(w, h):
     pygame.display.flip()
 
 
-
+s
 def menu(rect, first):
     screen.fill((250, 250, 250))
     screen.blit(first, rect)
