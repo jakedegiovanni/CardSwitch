@@ -33,7 +33,7 @@ print w, h
 c = pygame.time.Clock()
 font = pygame.font.Font("fonts/PressStart2p.ttf", 26)
 
-
+pygame.event.clear()
 
 def main():
     menu(rect, menuPicture)
@@ -56,6 +56,13 @@ def main():
     label = font.render("Score = " + str(score), 1, (255,215,0))
     screen.blit(label, (100, 100))
     
+	
+    # set up high score
+    hisc=open("high_score.txt","r+")
+    highscore=hisc.read()
+    highscoreint=int(highscore)
+    print highscoreint
+	
 
     while levelnum<2:
         global chosen_card
@@ -97,9 +104,22 @@ def main():
             else:
                 print correctlist
                 print "Sorry, you lost the game: " + str(score)
+
                 label = font.render("Sorry, you lost the gameScore = " + str(score), 1, (255,215,0))
                 screen.blit(label, (100, 300))
                # pygame.display.flip()
+
+                #high score implemented into the game
+                if score>highscoreint:
+                        hisc2=open("high_score.txt","w")
+                        highscoreint=score
+                        hisc2.write(str(highscoreint))
+                        print"new high score is: "+str(highscoreint)
+                
+                #even if the high score hasn't been broken
+                print "high score is: "+str(highscoreint)
+                label = font.render("Sorry, you lost the game/nScore = " + str(score), 1, (255,215,0))
+                screen.blit(label, (100, 100))
                 time.sleep(3)
                 pygame.quit()
                 sys.exit()
@@ -167,16 +187,17 @@ def generateList():
 def inputSuit():
     while True:
         event = pygame.event.wait()
-        if event.type in (pygame.K_h, pygame.KEYDOWN):
-            card = 0
-            return card
-        elif event.type in (pygame.K_c, pygame.KEYDOWN):
-            card = 13
-            return card
-        elif event.type in (pygame.K_d, pygame.KEYDOWN):
-            card = 26
-            return card
-        elif event.type in (pygame.K_s, pygame.KEYDOWN):
+        if event.type == pygame.KEYDOWN:
+            if event.type in (pygame.K_h, pygame.KEYDOWN):
+                card = 0
+                return card
+            elif event.type in (pygame.K_c, pygame.KEYDOWN):
+                card = 13
+                return card
+            elif event.type in (pygame.K_d, pygame.KEYDOWN):
+                card = 26
+                return card
+         elif event.type in (pygame.K_s, pygame.KEYDOWN):
             card = 39
             return card
 
