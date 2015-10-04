@@ -74,21 +74,20 @@ def main():
     screen.blit(label2,(40,50))
     label = font.render("Score = " + str(score), 1, (255,215,0))
     screen.blit(label, (40, 100))
-    
+
+    for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                pygame.quit()
+                sys.exit()
+
 	
    
 	
 
-    while levelnum<2:
+    while True:
         global chosen_card
         chosen_card = []
-
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    pygame.quit()
-                    sys.exit()
-
         global correctlist
         global useranswers
         useranswers = []
@@ -217,7 +216,9 @@ def inputSuit():
             elif event.key == pygame.K_s:
                 card=39
                 return card
-
+            elif event.key == pygame.K_ESCAPE:
+                pygame.quit()
+                sys.exit()
 
 def inputCard():
     while 1:
@@ -250,6 +251,9 @@ def inputCard():
                 return 12
             elif event.key == pygame.K_k:
                 return 13
+            if event.key == pygame.K_ESCAPE:
+                pygame.quit()
+                sys.exit()
 
 def renderText(w, h):
     font.set_bold(True)
@@ -274,7 +278,7 @@ def menu(rect, first):
         if input1.type == pygame.KEYDOWN:
             if input1.key == pygame.K_SPACE:
                 return 0
-            selectsound.play()
+                selectsound.play()
 
 
 main()
