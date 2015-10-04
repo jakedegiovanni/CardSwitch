@@ -1,10 +1,13 @@
 import pygame, time, sys, pyganim
 from random import randint
 import pyganim
+pygame.mixer.pre_init(44100, -16, 2, 2048)
 pygame.init()
 pygame.display.set_caption("Card Switch")
 w = 720
 h = 640
+pygame.mixer.music.load("Song\keygensong.wav")
+pygame.mixer.music.play()
 
 menuPicture = pygame.image.load('Background/Main Screen.jpg')
 menuPicture = pygame.transform.scale(menuPicture, (720, 640))
@@ -21,7 +24,9 @@ rect = gamePicture.get_rect()
 rect = rect.move((0, 0))
 
 size = (w, h)
-screen = pygame.display.set_mode(size)
+screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
+w, h = screen.get_size()
+print w, h
 c = pygame.time.Clock()
 font = pygame.font.Font("fonts/PressStart2p.ttf", 26)
 
@@ -43,14 +48,13 @@ def main():
     score = 0
 
     # initialize font; must be called after 'pygame.init()' to avoid 'Font not Initialized' error
-    myfont = pygame.font.SysFont("Courier New", 72)
-    myfont.set_bold(True)
+    font.set_bold(True)
 
 
     # render text
-    label = myfont.render("Score = " + str(score), 1, (255,215,0))
+    label = font.render("Score = " + str(score), 1, (255,215,0))
     screen.blit(label, (100, 100))
-    renderText(25, 515)
+    
 
     while levelnum<2:
         global chosen_card
@@ -75,6 +79,8 @@ def main():
         while card_count < 3 + levelnum:
             card = inputSuit()
             number = inputCard()
+
+            renderText(25, 515)
             card+=number
             useranswers.append(card)
             print 'Result ' + str(result) + " = "+ str(card)
@@ -89,7 +95,7 @@ def main():
                 print correctlist
                 print useranswers
                 print "Sorry, you lost the game: " + str(score)
-                label = myfont.render("Score = " + str(score), 1, (255,215,0))
+                label = font.render("Sorry, you lost the game/nScore = " + str(score), 1, (255,215,0))
                 screen.blit(label, (100, 100))
                 time.sleep(3)
                 pygame.quit()
@@ -100,7 +106,7 @@ def main():
         print "score for level " + str(levelnum)+ " is " + str(score)
         screen.fill((250, 250, 250))
         screen.blit(gamePicture, rect)
-        label = myfont.render("Score = " + str(score), 1, (255,215,0))
+        label = font.render("Score = " + str(score), 1, (255,215,0))
         screen.blit(label, (100, 100))
         pygame.display.flip()
 
@@ -159,6 +165,9 @@ def inputSuit():
     user_answers = []
     while 1:
         event = pygame.event.wait()
+        if event.type in (pygame.K_ESCAPE, pygame.KEYDOWN):
+            pygame.quit()
+            sys.exit()
         if event.type in (pygame.K_h, pygame.KEYDOWN):
             card=0
             return card
@@ -176,6 +185,9 @@ def inputSuit():
 def inputCard():
     while 1:
         event = pygame.event.wait()
+        if event.type in (pygame.K_ESCAPE, pygame.KEYDOWN):
+            pygame.quit()
+            sys.exit()
         if event.type in (pygame.K_a, pygame.KEYDOWN):
             return 1
         elif event.type in (pygame.K_2, pygame.KEYDOWN):
@@ -204,18 +216,17 @@ def inputCard():
             return 13
 
 def renderText(w, h):
-    myfont = pygame.font.SysFont("Courier New", 72)
-    myfont.set_bold(True)
-    label = myfont.render("Answer now", 1, (255,215,0))
+    font.set_bold(True)
+    label = font.render("Answer now", 1, (255,215,0))
     screen.blit(label, (w, h))
     pygame.display.flip()
 
 def renderDash(w, h):
-    myfont = pygame.font.SysFont("monospace", 50)
-    myfont.set_bold(True)
-    label = myfont.render("_", 1, (255,215,0))
+    font.set_bold(True)
+    label = font.render("_", 1, (255,215,0))
     screen.blit(label, (w, h))
     pygame.display.flip()
+
 
 
 def menu(rect, first):
