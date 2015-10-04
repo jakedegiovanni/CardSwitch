@@ -67,7 +67,9 @@ def main():
     # set up high score
     hisc=open("high_score.txt","r+")
     highscore=hisc.read()
+
     highscoreint=int(highscore)
+    hisc.close()
     print highscoreint
 
     # render text
@@ -124,6 +126,7 @@ def main():
                         hisc2=open("high_score.txt","w")
                         highscoreint=score
                         hisc2.write(str(highscoreint))
+                        hisc2.close()
                         print"new high score is: "+str(highscoreint)
                 
                 #even if the high score hasn't been broken
@@ -291,7 +294,7 @@ def menu(rect, first):
     screen.blit(first, rect)
     pygame.display.flip()
     while 1:
-   selectsound.play()
+        selectsound.play()
         input1 = pygame.event.wait()
         if input1.type == pygame.KEYDOWN:
             if input1.key == pygame.K_SPACE:
