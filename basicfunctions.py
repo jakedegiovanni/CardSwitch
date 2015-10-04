@@ -15,7 +15,7 @@ rules2Picture = pygame.transform.scale(rules2Picture, (720, 640))
 readyPicture = pygame.image.load('Background/Final page before game.jpg')
 readyPicture = pygame.transform.scale(readyPicture, (720, 640))
 gamePicture = pygame.image.load('Background/Background for in-Game.png')
-gamePicture = pygame.transform.scale(gamePicture, (720, 640)) 	
+gamePicture = pygame.transform.scale(gamePicture, (720, 640))
 
 rect = gamePicture.get_rect()
 rect = rect.move((0, 0))
@@ -26,13 +26,18 @@ c = pygame.time.Clock()
 font = pygame.font.Font("fonts/PressStart2p.ttf", 26)
 
 
-screen.fill((250, 250, 250))
 
-screen.blit(gamePicture, rect)
 
 
 def main():
-    menu()
+    menu(rect, menuPicture)
+    menu(rect, rules1Picture)
+    menu(rect, rules2Picture)
+
+    screen.fill((250, 250, 250))
+    screen.blit(gamePicture, rect)
+    pygame.display.flip()
+
     imagelist = generateList()
     levelnum = 0
     score = 0
@@ -68,21 +73,8 @@ def main():
         w = 10
         h = 550
         while card_count < 3 + levelnum:
-            time.sleep(3)
-            second=0
-            renderDash(w, h)
-            for event in pygame.event.get():
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
-                        pygame.quit()
-                        sys.exit()
-                if second==0:
-                    card = inputSuit(event)
-                    second=1
-                else:
-                    number = inputCard(event)
-
-            w+=50
+            card = inputSuit()
+            number = inputCard()
             card+=number
             useranswers.append(card)
             print 'Result ' + str(result) + " = "+ str(card)
@@ -163,47 +155,53 @@ def generateList():
     return imagelist
 
 
-def inputSuit(event):
+def inputSuit():
     user_answers = []
-    card = 0
-    if event.key == pygame.K_h:
-        card=0
-    if event.key == pygame.K_c:
-        card=13
-    if event.key == pygame.K_d:
-        card=26
-    if event.key == pygame.K_s:
-        card=39
+    while 1:
+        event = pygame.event.wait()
+        if event.type in (pygame.K_h, pygame.KEYDOWN):
+            card=0
+            return card
+        elif event.type in (pygame.K_c, pygame.KEYDOWN):
+            card=13
+            return card
+        elif event.type in (pygame.K_d, pygame.KEYDOWN):
+            card=26
+            return card
+        elif event.type in (pygame.K_s, pygame.KEYDOWN):
+            card=39
+            return card
 
-    return card
 
-def inputCard(event):
-    if event.key == pygame.K_a:
-        return 1
-    elif event.key == pygame.K_2:
-        return 2
-    elif event.key == pygame.K_3:
-        return 3
-    elif event.key == pygame.K_4:
-        return 4
-    elif event.key == pygame.K_5:
-        return 5
-    elif event.key == pygame.K_6:
-        return 6
-    elif event.key == pygame.K_7:
-        return 7
-    elif event.key == pygame.K_8:
-        return 8
-    elif event.key == pygame.K_9:
-        return 9
-    elif event.key == pygame.K_t:
-        return 10
-    elif event.key == pygame.K_j:
-        return 11
-    elif event.key == pygame.K_q:
-        return 12
-    elif event.key == pygame.K_k:
-        return 13
+def inputCard():
+    while 1:
+        event = pygame.event.wait()
+        if event.type in (pygame.K_a, pygame.KEYDOWN):
+            return 1
+        elif event.type in (pygame.K_2, pygame.KEYDOWN):
+            return 2
+        elif event.type in (pygame.K_3, pygame.KEYDOWN):
+            return 3
+        elif event.type in (pygame.K_4, pygame.KEYDOWN):
+            return 4
+        elif event.type in (pygame.K_5, pygame.KEYDOWN):
+            return 5
+        elif event.type in (pygame.K_6, pygame.KEYDOWN):
+            return 6
+        elif event.type in (pygame.K_7, pygame.KEYDOWN):
+            return 7
+        elif event.type in (pygame.K_8, pygame.KEYDOWN):
+            return 8
+        elif event.type in (pygame.K_9, pygame.KEYDOWN):
+            return 9
+        elif event.type in (pygame.K_t, pygame.KEYDOWN):
+            return 10
+        elif event.type in (pygame.K_j, pygame.KEYDOWN):
+            return 11
+        elif event.type in (pygame.K_q, pygame.KEYDOWN):
+            return 12
+        elif event.type in (pygame.K_k, pygame.KEYDOWN):
+            return 13
 
 def renderText(w, h):
     myfont = pygame.font.SysFont("Courier New", 72)
@@ -220,8 +218,15 @@ def renderDash(w, h):
     pygame.display.flip()
 
 
-def menu():
-    pass
+def menu(rect, first):
+    screen.fill((250, 250, 250))
+    screen.blit(first, rect)
+    pygame.display.flip()
+    while 1:
+        input = pygame.event.wait()
+        if input.type in (pygame.K_SPACE, pygame.KEYDOWN):
+            return 0
+
 
 
 main()
