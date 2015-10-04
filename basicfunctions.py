@@ -104,15 +104,6 @@ def main():
             number = inputCard()
             card+=number
             useranswers.append(card)
-
-            print useranswers
-            print 'Result ' + str(result) + " = " + str(card)
-            result += 1
-            card_count += 1
-
-        i = 0
-        card_count = 0
-        while i < 3+levelnum:
             print 'Result ' + str(result) + " = "+ str(card)
             if correctlist[card_count] == useranswers[card_count]:
                 score += 1
@@ -211,8 +202,7 @@ def generateList():
 
 
 def inputSuit():
-    user_answers = []
-    renderText(25, 530)
+    renderText(25, 515)
     while 1:
         event = pygame.event.wait()
         if event.type == pygame.KEYDOWN:
@@ -288,12 +278,10 @@ def menu(rect, first):
     while 1:
         input1 = pygame.event.wait()
         if input1.type == pygame.KEYDOWN:
-            if input1.key == pygame.K_ESCAPE:
-                pygame.quit()
-                sys.exit()
             if input1.key == pygame.K_SPACE:
-                return 0
                 selectsound.play()
+                return 0
+                
 
 
 main()
