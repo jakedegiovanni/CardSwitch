@@ -64,8 +64,7 @@ def main():
     score = 0
 
     # initialize font; must be called after 'pygame.init()' to avoid 'Font not Initialized' error
-    myfont=pygame.font.SysFont("Courier New", 72)
-    font.set_bold(True)
+
 
     # set up high score
     hisc=open("high_score.txt","r+")
@@ -74,11 +73,10 @@ def main():
     print highscoreint
 
     # render text
-    label2= myfont.render("High Score= " +str(highscore), 1, (255,215,0))
+    label2= font.render("High Score= " +str(highscore), 1, (255,215,0))
     screen.blit(label2,(40,50))
-    label = myfont.render("Score = " + str(score), 1, (255,215,0))
+    label = font.render("Score = " + str(score), 1, (255,215,0))
     screen.blit(label, (40, 100))
-    renderText(25, 515)
     
 	
    
@@ -95,6 +93,7 @@ def main():
                     sys.exit()
 
         global correctlist
+        global useranswers
         useranswers = []
         correctlist = []
 
@@ -111,6 +110,7 @@ def main():
          #   renderText(25, 515)
             card += number
             print card
+            card+=number
             useranswers.append(card)
             print useranswers
             print 'Result ' + str(result) + " = " + str(card)
@@ -218,7 +218,8 @@ def generateList():
 
 
 def inputSuit():
-    while True:
+    renderText(25, 515)
+    while 1:
         event = pygame.event.wait()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_h:
@@ -287,9 +288,10 @@ def menu(rect1, first):
     screen.blit(first, rect1)
     pygame.display.flip()
     while 1:
-        input = pygame.event.wait()
-        if input.type in (pygame.K_SPACE, pygame.KEYDOWN):
-            return 0
+        input1 = pygame.event.wait()
+        if input1.type == pygame.KEYDOWN:
+            if input1.key == pygame.K_SPACE:
+                return 0
             selectsound.play()
 
 
