@@ -7,13 +7,22 @@ pygame.display.set_caption("Card Switch")
 w = 720
 h = 640
 pygame.mixer.music.load("Song\keygensong.wav")
+pygame.mixer.music.set_volume(0.5)
 pygame.mixer.music.play()
 
-infoObject = pygame.display.Info()
-pygame.display.set_mode((infoObject.current_w, infoObject.current_h))
 
-w = infoObject.current_w
-h = infoObject.current_h
+cardsound = pygame.mixer.Sound("Song\AOL_Sword.wav")
+selectsound = pygame.mixer.Sound("Song\AOL_Menu_Select.wav")
+successsound = pygame.mixer.Sound("Song\LOZ_Get_Heart.wav")
+failsound = pygame.mixer.Sound("Song\LTTP_Error.wav")
+
+cardsound.set_volume(1)
+selectsound.set_volume(1)
+successsound.set_volume(1)
+failsound.set_volume(1)
+
+infoObject = pygame.display.Info()
+pygame.display.set_mode((w, h))
 
 menuPicture = pygame.image.load('Background/Main Screen.jpg')
 menuPicture = pygame.transform.scale(menuPicture, (w, h))
@@ -88,24 +97,27 @@ def main():
             card+=number
             useranswers.append(card)
             print 'Result ' + str(result) + " = "+ str(card)
-            result+=1
-            card_count+=1
-
-        i = 0
-        while i < 3+levelnum:
-            if correctlist[i] == useranswers[i]:
+            if correctlist[card_count] == useranswers[card_count]:
                 score += 1
+                successsound.play()
             else:
                 print correctlist
                 print useranswers
                 print "Sorry, you lost the game: " + str(score)
-                label = font.render("Sorry, you lost the game/nScore = " + str(score), 1, (255,215,0))
+                failsound.play()
+                label = font.render("Sorry, you lost the game\nScore = " + str(score), 1, (255,215,0))
                 screen.blit(label, (100, 100))
                 time.sleep(3)
                 pygame.quit()
                 sys.exit()
+            result+=1
+            card_count+=1
 
-            i+=1
+       # i = 0
+       # while i < 3+levelnum:
+            
+
+           # i+=1
 
         print "score for level " + str(levelnum)+ " is " + str(score)
         screen.fill((250, 250, 250))
@@ -130,6 +142,7 @@ def level(num1, list1):
         # create the PygAnimation object, selects the images to display.
         animObj = pyganim.PygAnimation([(randomCard(list1), time)], loop=False)
         animObj.play()
+        cardsound.play()
 
         while animObj.isFinished() != True:
             animObj.blit(screen, (100,100))
@@ -169,49 +182,52 @@ def inputSuit():
     user_answers = []
     while 1:
         event = pygame.event.wait()
-        if event.type in (pygame.K_h, pygame.KEYDOWN):
-            card=0
-            return card
-        elif event.type in (pygame.K_c, pygame.KEYDOWN):
-            card=13
-            return card
-        elif event.type in (pygame.K_d, pygame.KEYDOWN):
-            card=26
-            return card
-        elif event.type in (pygame.K_s, pygame.KEYDOWN):
-            card=39
-            return card
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_h: 
+                card=0
+                return card
+            elif event.key == pygame.K_c:
+                card=13
+                return card
+            elif event.key ==  pygame.K_d:
+                card=26
+                return card
+            elif event.key == pygame.K_s:
+                card=39
+                return card
 
 
 def inputCard():
     while 1:
-        event = pygame.event.wait()
-        if event.type in (pygame.K_a, pygame.KEYDOWN):
-            return 1
-        elif event.type in (pygame.K_2, pygame.KEYDOWN):
-            return 2
-        elif event.type in (pygame.K_3, pygame.KEYDOWN):
-            return 3
-        elif event.type in (pygame.K_4, pygame.KEYDOWN):
-            return 4
-        elif event.type in (pygame.K_5, pygame.KEYDOWN):
-            return 5
-        elif event.type in (pygame.K_6, pygame.KEYDOWN):
-            return 6
-        elif event.type in (pygame.K_7, pygame.KEYDOWN):
-            return 7
-        elif event.type in (pygame.K_8, pygame.KEYDOWN):
-            return 8
-        elif event.type in (pygame.K_9, pygame.KEYDOWN):
-            return 9
-        elif event.type in (pygame.K_t, pygame.KEYDOWN):
-            return 10
-        elif event.type in (pygame.K_j, pygame.KEYDOWN):
-            return 11
-        elif event.type in (pygame.K_q, pygame.KEYDOWN):
-            return 12
-        elif event.type in (pygame.K_k, pygame.KEYDOWN):
-            return 13
+        event = pygame.event.wait() 
+        if event.type == pygame.KEYDOWN:
+            
+            if event.key == pygame.K_a or event.key == pygame.K_1:
+                return 1
+            elif event.key == pygame.K_2:
+                return 2
+            elif event.key == pygame.K_3:
+                return 3
+            elif event.key == pygame.K_4:
+                return 4
+            elif event.key == pygame.K_5:
+                return 5
+            elif event.key == pygame.K_6:
+                return 6
+            elif event.key == pygame.K_7:
+                return 7
+            elif event.key == pygame.K_8:
+                return 8
+            elif event.key == pygame.K_9:
+                return 9
+            elif event.key == pygame.K_t:
+                return 10
+            elif event.key == pygame.K_j:
+                return 11
+            elif event.key == pygame.K_q:
+                return 12
+            elif event.key == pygame.K_k:
+                return 13
 
 def renderText(w, h):
     font.set_bold(True)
@@ -235,7 +251,7 @@ def menu(rect, first):
         input = pygame.event.wait()
         if input.type in (pygame.K_SPACE, pygame.KEYDOWN):
             return 0
-
+            selectsound.play()
 
 
 main()
