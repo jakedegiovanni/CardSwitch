@@ -52,19 +52,24 @@ def main():
     score = 0
 
     # initialize font; must be called after 'pygame.init()' to avoid 'Font not Initialized' error
+    myfont=pygame.font.SysFont("Courier New", 72)
     font.set_bold(True)
 
-
-    # render text
-    label = font.render("Score = " + str(score), 1, (255,215,0))
-    screen.blit(label, (100, 100))
-    
-	
     # set up high score
     hisc=open("high_score.txt","r+")
     highscore=hisc.read()
     highscoreint=int(highscore)
     print highscoreint
+
+    # render text
+    label2= myfont.render("High Score= " +str(highscore), 1, (255,215,0))
+    screen.blit(label2,(40,50))
+    label = myfont.render("Score = " + str(score), 1, (255,215,0))
+    screen.blit(label, (40, 100))
+    renderText(25, 515)
+    
+	
+   
 	
 
     while levelnum<2:
