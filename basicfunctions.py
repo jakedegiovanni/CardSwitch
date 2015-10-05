@@ -75,22 +75,21 @@ def main():
     screen.blit(label2,(40,50))
     label = myfont.render("Score = " + str(score), 1, (255,215,0))
     screen.blit(label, (40, 100))
-    renderText(25, 515)
-    
+
+
+    for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                pygame.quit()
+                sys.exit()
+
 	
    
 	
 
-    while levelnum<2:
+    while True:
         global chosen_card
         chosen_card = []
-
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    pygame.quit()
-                    sys.exit()
-
         global correctlist
         useranswers = []
         correctlist = []
@@ -129,11 +128,14 @@ def main():
                 
                 #even if the high score hasn't been broken
                 print "high score is: "+str(highscoreint)
-                label = font.render("Sorry, you lost the game/nScore = " + str(score), 1, (255,215,0))
-                screen.blit(label, (100, 100))
-                time.sleep(3)
-                pygame.quit()
-                sys.exit()
+                screen.fill((250, 250, 250))
+                screen.blit(gamePicture, rect)
+                screen.blit(label, rect)
+                pygame.display.update()
+                pygame.display.flip()
+                time.sleep(4)
+                main()
+
             result+=1
             card_count+=1
 
@@ -215,7 +217,7 @@ def generateList():
 
 
 def inputSuit():
-    user_answers = []
+    renderText(25, 515)
     while 1:
         event = pygame.event.wait()
         if event.type == pygame.KEYDOWN:
@@ -231,7 +233,9 @@ def inputSuit():
             elif event.key == pygame.K_s:
                 card=39
                 return card
-
+            elif event.key == pygame.K_ESCAPE:
+                pygame.quit()
+                sys.exit()
 
 def inputCard():
     while 1:
@@ -264,6 +268,9 @@ def inputCard():
                 return 12
             elif event.key == pygame.K_k:
                 return 13
+            if event.key == pygame.K_ESCAPE:
+                pygame.quit()
+                sys.exit()
 
 def renderText(w, h):
     font.set_bold(True)
@@ -284,11 +291,13 @@ def menu(rect, first):
     screen.blit(first, rect)
     pygame.display.flip()
     while 1:
-        input = pygame.event.wait()
-        if input.type in (pygame.K_SPACE, pygame.KEYDOWN):
-            return 0
-            selectsound.play()
-
+   selectsound.play()
+        input1 = pygame.event.wait()
+        if input1.type == pygame.KEYDOWN:
+            if input1.key == pygame.K_SPACE:
+                selectsound.play()
+                return 0
+                
 
 main()
 
