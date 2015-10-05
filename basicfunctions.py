@@ -59,6 +59,13 @@ def main():
     label = font.render("Score = " + str(score), 1, (255,215,0))
     screen.blit(label, (100, 100))
     
+	
+    # set up high score
+    hisc=open("high_score.txt","r+")
+    highscore=hisc.read()
+    highscoreint=int(highscore)
+    print highscoreint
+	
 
     while levelnum<2:
         global chosen_card
@@ -99,6 +106,16 @@ def main():
                 print correctlist
                 print useranswers
                 print "Sorry, you lost the game: " + str(score)
+				
+                #high score implemented into the game
+                if score>highscoreint:
+                        hisc2=open("high_score.txt","w")
+                        highscoreint=score
+                        hisc2.write(str(highscoreint))
+                        print"new high score is: "+str(highscoreint)
+                
+                #even if the high score hasn't been broken
+                print "high score is: "+str(highscoreint)
                 label = font.render("Sorry, you lost the game/nScore = " + str(score), 1, (255,215,0))
                 screen.blit(label, (100, 100))
                 time.sleep(3)
